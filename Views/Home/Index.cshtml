@@ -1,0 +1,169 @@
+﻿@{
+    ViewData["Title"] = "Home Page"; // --> page title
+    Layout = null; // --> no layout is used for this view
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ica Solves</title> <!-- page title displayed in the browser tab -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery for dynamic content manipulation -->
+    <link rel="stylesheet" href="/css/styles.css"> <!-- the CSS file used -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" /> <!-- used Bootstrap for the icons -->
+    <!-- used Poppins font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container"> <!-- the main container consisting the left and right columns in the page -->
+        <div class="column left"> <!-- left side column -->
+            <i class="bi bi-calculator-fill"></i> <!-- bootstrap icon for a calculator -->
+            <h1>ICA <span class="italic"> SOLVES </span> </h1> <!-- title with an italic style for 'SOLVES' -->
+            <!-- introduction paragraph of the website -->
+            <p>Dive in to find out if your number is <strong>prime</strong> <br /> 
+             and calculate its <strong>factorial</strong> in no time.</p>
+        </div>
+        <div class="column right"> <!-- right side column -->
+            <h3>Select a Tool </h3> <!-- header for tool selection -->
+            <div class="menu">
+                <button id="primeCheckerBtn" class="menu-btn">Prime Checker</button> <!-- button to select prime checker tool -->
+                <button id="factorialCalculatorBtn" class="menu-btn">Factorial Calculator</button> <!-- button to select factorial calculator tool -->
+            </div>
+            <div id="content" class="dynamic-content"> <!-- the content that will display here will depend on what tool the user selected -->
+                <!-- dynamic content appears here from JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // --> displays the content of the prime checker tool by default when the page loads
+            displayPrimeChecker();
+
+            // --> marks the prime checker button as active by default since its content is what displays by default, plus menu buttons have a different styling when currently active
+            $('#primeCheckerBtn').addClass('active');
+
+            // --> clicking the primeCheckerBtn will do the following...
+            $('#primeCheckerBtn').on('click', function () {
+                displayPrimeChecker(); // --> displays the prime checker content
+                $(this).addClass('active'); // --> add the 'active' class to highlight the primeCheckerBtn 
+                $('#factorialCalculatorBtn').removeClass('active'); // --> removes the 'active' class from the other menu button
+            });
+
+            // --> clicking the primeComputeBtn inside the prime checker will do the following...
+            $(document).on('click', '#primeComputeBtn', function () {
+                var number = $('#primeInput').val().trim();  // --> gets the value from the input field and removes any extra spaces
+
+                if (!isNaN(number) && number !== "") { // --> checks if the input is a valid number
+                    checkPrimeNumber(number);  // --> calls the function that checks if the number inputted is prime
+                } else {
+                    $('#primeResult').text('Please enter a valid number'); // --> else, displays an error message if input is invalid
+                }
+            });
+
+            // --> clicking the clearInputBtn will do the following...
+            $(document).on('click', '#clearInputBtn', function () {
+                $('#primeInput').val('');  // --> clear the input field
+                $('#primeResult').text('');  // --> clear the result
+            });
+
+            // --> clicking the factorialCalculatorBtn will do the following...
+            $('#factorialCalculatorBtn').on('click', function () {
+                displayFactorialCalculator(); // --> displays the factorial calculator content
+                $(this).addClass('active'); // --> add the 'active' class to highlight the factorialCalculatorBtn
+                $('#primeCheckerBtn').removeClass('active'); // --> removes the 'active' class from the other menu button
+            });
+
+            // --> clicking the factorialComputeBtn will do the following...
+            $(document).on('click', '#factorialComputeBtn', function () {
+                var number = $('#factorialInput').val().trim();  // --> gets the value from the input field and removes any extra spaces
+
+                if (!isNaN(number) && number !== "") { // --> checks if the input is a valid number
+                    calculateFactorial(number);  // --> calls the function that calculates the factorial of the inputted number
+                } else {
+                    $('#factorialResult').text('Please enter a valid number'); // --> else, displays an error message if input is invalid
+                }
+            });
+
+            // --> clicking the clearInputBtn will do the following...
+            $(document).on('click', '#clearFactorialBtn', function () {
+                $('#factorialInput').val('');  // --> clear the input field
+                $('#factorialResult').text('');  // --> clear the result
+            });
+
+        });
+
+        // --> function to display prime number checker content
+        function displayPrimeChecker() {
+            // <!-- update the content area with the prime checker tool -->
+            $('#content').html(` 
+                <h3>What is a <span class="italic"><strong>Prime Number</strong>?</span></h3>
+                <p>A prime number is a natural number greater than 1 that has no divisors other than 1 and itself. It can only be evenly divided by 1 and the number itself.</p>
+                <input type="number" id="primeInput" placeholder="Enter a number" class="input-field">
+                <button id="primeComputeBtn" class="compute-btn"><i class="bi bi-calculator-fill"></i></button>
+                <button id="clearInputBtn" class="clear-btn"><i class="bi bi-trash3-fill"></i></button>
+                <div id="primeResult" class="result"></div>
+            `);
+        }
+
+        // --> function to display factorial calculator content
+        function displayFactorialCalculator() {
+            //  <!-- update the content area with the factorial calculator tool -->
+            $('#content').html(`
+                <h3>What is a <span class="italic"><strong>Factorial</strong>?</span></h3>
+                <p> A factorial, denoted by <em>n!</em>, is the product of all positive integers from 1 to a given number <em>n</em>.
+                For example, <strong>5! = 5 × 4 × 3 × 2 × 1 = 120</strong>. Factorials are commonly used in mathematics for
+                permutations, combinations, and other calculations.
+                </p>
+                <input type="number" id="factorialInput" placeholder="Enter a number" class="input-field">
+                <button id="factorialComputeBtn" class="compute-btn"><i class="bi bi-calculator-fill"></i></button>
+                <button id="clearFactorialBtn" class="clear-btn"><i class="bi bi-trash3-fill"></i></button>
+                <div id="factorialResult" class="result"></div>
+            `);
+        }
+
+        // --> function to check if the entered number is prime by calling an API
+        function checkPrimeNumber(number) {
+            $.ajax({
+                url: '/Home/CheckPrime', // --> URL from the API which can be found in the HomeController.cs
+                type: 'POST',
+                data: {
+                    number: number // --> sends number to the server
+                },
+                success: function (response) {
+                    // --> handles the response from the server (prime check result)
+                    $('#primeResult').text(response);  // --> displays the result in primeResult div
+                },
+                error: function () {
+                    $('#primeResult').text('There was an error checking the number. Please try again.'); // --> error message if API call fails
+                }
+            });
+        }
+
+        // --> function to calculate factorial by calling an API
+        function calculateFactorial(number) {
+            $.ajax({
+                url: '/Home/CalculateFactorial', // --> URL from the API which can be found in the HomeController.cs
+                type: 'POST',
+                data: {
+                    number: number // --> sends number to the server
+                },
+                success: function (response) {
+                    // Handle the response from the server (prime check result)
+                    $('#factorialResult').text(response); // --> displays the result in factorialResult div
+                },
+                error: function () {
+                    $('#factorialResult').text('There was an error checking the number. Please try again.'); // --> error message if API call fails
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
+

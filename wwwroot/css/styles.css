@@ -1,0 +1,164 @@
+﻿/* general styles */
+body {
+    font-family: Poppins, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+button, input {
+    font-family: Poppins, sans-serif;
+}
+
+/* headings */
+h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-align: left;
+}
+
+h3 {
+    font-weight: normal;
+}
+
+/* layout containers*/
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* left column */
+.left {
+    background-color: #582FF5;
+    color: #FEFFF5;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.left i {
+    font-size: 3rem;
+    color: #E0F541;
+}
+
+/* right column */
+.right {
+    background-color: #FEFFFF;
+    text-align: center;
+}
+
+/* menu buttons */
+.menu {
+    margin-bottom: 20px;
+}
+
+.menu-btn {
+    background-color: #582FF5;
+    color: #FEFFF5;
+    border: 2px solid transparent;
+    padding: 20px 70px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 0.5rem;
+}
+
+.menu-btn.active, .menu-btn:hover {
+    background-color: transparent;
+    color: #582FF5;
+    border: 2px solid #582FF5;
+    font-weight: bold;
+}
+
+/* dynamic content */
+.dynamic-content p, .dynamic-content h3 {
+    text-align: justify;
+    padding-top: 0;
+}
+
+.dynamic-content p {
+    color: #4e4e4e;
+}
+
+/* input fields */
+.input-field {
+    padding: 10px;
+    border-radius: 50px;
+    border: 2px solid #4e4e4e;
+    margin-right: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #582FF5 !important;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: #582FF5;
+}
+
+input[type="number"]::placeholder {
+    color: #4e4e4e;
+}
+
+input[type="number"]:focus::placeholder {
+    color: #582FF5;
+}
+
+/* compute and clear buttons */
+.compute-btn {
+    background-color: #582FF5;
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.clear-btn {
+    background-color: #E0F541;
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.clear-btn:hover {
+    background-color: transparent;
+    color: #E0F541;
+    border: 2px solid #E0F541;
+}
+
+.compute-btn:hover {
+    background-color: transparent;
+    color: #582FF5;
+    border: 2px solid #582FF5;
+}
+
+/* result */
+.result {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #582FF5;
+}
+
+/* italic text style */
+.italic {
+    font-style: italic;
+    font-weight: 450;
+}
+
